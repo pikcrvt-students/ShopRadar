@@ -461,7 +461,33 @@ h1, h2, h3, h4, h5, h6 {
     border-color: var(--color-orange);
 }
 
+.product {
+    min-height: 140vh;
+    padding: 60px 70px;
+    background-color: var(--color-milk-alternative);
+}
 
+.product-body {
+    max-width: 1300px;
+    margin-inline: auto;
+}
+
+.product-tabel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.product-tabel-offer {
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    background: var(--color-light);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 @media (max-width: 1024px) {
     .header {
         flex-wrap: wrap;
@@ -487,18 +513,26 @@ h1, h2, h3, h4, h5, h6 {
     .banner-title {
         font-size: clamp(36px, 5vw, 56px);
     }
+    .product {
+        padding: 40px 24px;
+    }
+
+    .product-tabel-offer {
+        flex: 1 1 calc(50% - 15px);
+        max-width: calc(50% - 15px);
+    }
 }
 
 @media (max-width: 767px) {
-  .header-menu-link {
-    height: 32px;
-  }
+    .header-menu-link {
+        height: 32px;
+    }
   
-  .header-menu-list {
-    column-gap: 24px;
-    flex-wrap: wrap;
-  }
-  .banner {
+    .header-menu-list {
+        column-gap: 24px;
+        flex-wrap: wrap;
+    }
+    .banner {
         padding: 32px 16px;
     }
 
@@ -538,6 +572,14 @@ h1, h2, h3, h4, h5, h6 {
 
     .search-filter {
         justify-content: center;
+    }
+    .product {
+        padding: 32px 16px;
+    }
+
+    .product-tabel-offer {
+        flex: 1 1 100%;
+        max-width: 100%;
     }
 }
 
