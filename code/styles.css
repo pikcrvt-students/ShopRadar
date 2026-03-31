@@ -101,6 +101,7 @@ a:hover{
     --container-padding-x: 15px;
 
     --transition-duration: 0.2s;
+    --header-height: 90px;
 }
 body {
     background-color: var(--color-milk);
@@ -141,6 +142,7 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 1.2px;
     text-transform: uppercase;
     white-space: nowrap;
+    text-decoration: none;
     background-color: var(--color-light);
     border: none;
     border-radius: var(--border-radius);
@@ -153,11 +155,24 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: space-between;
     align-items: center;
     column-gap: 20px;
+    min-height: var(--header-height);
     padding-inline: 32px;
     background-color: var(--color-milk-alternative);
 }
 .header-logo {
-   flex-shrink:  0; 
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header-logo:hover {
+    color: inherit;
+}
+
+.header-logo:focus,
+.header-logo:focus-visible {
+    outline: none;
 }
 .header-menu-list {
     display: flex;
@@ -189,6 +204,199 @@ h1, h2, h3, h4, h5, h6 {
     column-gap: 40px;
     align-items: center;
 }
+.header-acount-button{
+    border: none;
+    background-color: transparent;
+}
+.header-acount-button::before{
+    content: '';
+    display: block;
+    height: min(6.5vw, 35px);
+    border-radius: 20%;
+    aspect-ratio: 1;
+    background: url('../icons/acount-logo.svg')  center/contain no-repeat;
+}
+.banner {
+    min-height: calc(100vh - var(--header-height));
+    padding: 60px 70px;
+    background-color: var(--color-milk-alternative);
+    display: flex;
+    align-items: center;
+}
+
+.banner-body {
+    width: 100%;
+    max-width: 1300px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+}
+
+.banner-info {
+    max-width: 600px;
+}
+
+.banner-subtitle {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-orange);
+}
+
+.banner-title {
+    margin-bottom: 24px;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.banner-description {
+    max-width: 520px;
+    margin-bottom: 32px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-dark-grey);
+}
+
+.banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.banner-link {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.banner-card {
+    width: 100%;
+    max-width: 380px;
+    padding: 24px;
+    background-color: var(--color-light);
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+.banner-card-label {
+    display: inline-flex;
+    margin-bottom: 18px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-light);
+    background-color: var(--color-orange);
+    border-radius: 999px;
+}
+
+.banner-card-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 220px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-color: var(--color-milk);
+    overflow: hidden;
+}
+
+.banner-card-image img {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.banner-card-store {
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--color-orange);
+}
+
+.banner-card-title {
+    margin-bottom: 14px;
+    font-size: 28px;
+    line-height: 1.1;
+    text-transform: none;
+}
+
+.banner-card-prices {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.banner-card-old-price {
+    font-size: 18px;
+    color: var(--color-light-grey);
+    text-decoration: line-through;
+}
+
+.banner-card-new-price {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.banner-card-discount {
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-orange);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.button--primary {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    border: 1px solid var(--color-dark);
+}
+
+.button--primary:hover {
+    background-color: var(--color-orange);
+    border-color: var(--color-orange);
+    color: var(--color-light);
+}
+
+.button--secondary {
+    background-color: transparent;
+    color: var(--color-dark);
+    border: 1px solid var(--color-dark);
+}
+
+.button--secondary:hover {
+    background-color: transparent;
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+}
+.banner-actions .button--secondary:hover {
+    background-color: transparent;
+}
+
+.button--offer {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    border: 1px solid var(--color-dark);
+}
+
+.button--offer:hover {
+    background-color: var(--color-dark); 
+    color: var(--color-light);
+    border-color: var(--color-dark);
+}
 
 @media (max-width: 1024px) {
     .header {
@@ -204,6 +412,17 @@ h1, h2, h3, h4, h5, h6 {
     .header-menu-link {
         height: 50px;
     }
+    .banner {
+        padding: 40px 24px;
+    }
+
+    .banner-body {
+        gap: 40px;
+    }
+
+    .banner-title {
+        font-size: clamp(36px, 5vw, 56px);
+    }
 }
 
 @media (max-width: 767px) {
@@ -215,6 +434,35 @@ h1, h2, h3, h4, h5, h6 {
     column-gap: 24px;
     flex-wrap: wrap;
   }
+  .banner {
+        padding: 32px 16px;
+    }
+
+    .banner-body {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .banner-info {
+        max-width: none;
+    }
+
+    .banner-description {
+        max-width: none;
+        font-size: 16px;
+    }
+
+    .banner-card {
+        max-width: none;
+    }
+
+    .banner-card-title {
+        font-size: 24px;
+    }
+
+    .banner-card-new-price {
+        font-size: 26px;
+    }
 }
 @media (max-width: 360px) {
   .header-actions {
