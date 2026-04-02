@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Radar | RIMI</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header class="header">
@@ -20,43 +21,32 @@
 
         <nav class="header-menu">
             <ul class="header-menu-list">
-                <li class="header-menu-item">
-                    <a href="./home.html" class="header-menu-link">Home</a>
-                </li>
-                <li class="header-menu-item">
-                    <a href="./lidl.html" class="header-menu-link">LIDL</a>
-                </li>
-                <li class="header-menu-item">
-                    <a href="./maxima.html" class="header-menu-link">MAXIMA</a>
-                </li>
-                <li class="header-menu-item">
-                    <a href="./rimi.html" class="header-menu-link is-current">RIMI</a>
-                </li>
+                <li><a href="./home.html" class="header-menu-link">Home</a></li>
+                <li><a href="./lidl.html" class="header-menu-link">LIDL</a></li>
+                <li><a href="./maxima.html" class="header-menu-link">MAXIMA</a></li>
+                <li><a href="./rimi.html" class="header-menu-link is-current">RIMI</a></li>
             </ul>
         </nav>
 
         <div class="header-actions">
-            <button 
-                class="header-cart-button button"
-                type="button"
-            >
-                Shoping Cart
-            </button>
-            <button class="header-acount-button" 
-            type="button"
-            >
-            </button>
+            <a href="./cart.html" class="header-cart-button button">
+                Cart (<span class="cart-count">0</span>)
+            </a>
+
+            <button class="header-acount-button" type="button"></button>
+
             <div class="profile-menu">
                 <div class="profile-menu-body">
                     <p class="profile-name">Guest</p>
-                    <button class="profile-link profile-register-button" type="button">Register</button>
+                    <button class="profile-link profile-register-button">Register</button>
                     <a href="#" class="profile-link">Profile</a>
-                    <a href="#" class="profile-link">Settings</a>
+                    <button class="profile-link profile-settings-button" type="button">Settings</button>
                     <a href="#" class="profile-link">Logout</a>
                 </div>
             </div>
         </div>
     </header>
+
     <main class="content">
         <section class="store-hero">
             <div class="store-hero-body">
@@ -77,13 +67,19 @@
 
         <section class="store-products">
             <div class="store-products-body">
+
                 <article class="store-product-card">
                     <div class="store-product-image"></div>
                     <p class="store-product-store">RIMI</p>
                     <h2 class="store-product-title">Cheese</h2>
                     <p class="store-product-old-price">Old €4.99</p>
                     <p class="store-product-new-price">New €3.79</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button class="button button--offer add-to-cart"
+                        data-title="Cheese"
+                        data-price="3.79"
+                        data-store="RIMI">
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -92,7 +88,12 @@
                     <h2 class="store-product-title">Juice</h2>
                     <p class="store-product-old-price">Old €3.20</p>
                     <p class="store-product-new-price">New €2.29</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button class="button button--offer add-to-cart"
+                        data-title="Juice"
+                        data-price="2.29"
+                        data-store="RIMI">
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -101,7 +102,12 @@
                     <h2 class="store-product-title">Bananas</h2>
                     <p class="store-product-old-price">Old €1.89</p>
                     <p class="store-product-new-price">New €1.29</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button class="button button--offer add-to-cart"
+                        data-title="Bananas"
+                        data-price="1.29"
+                        data-store="RIMI">
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -110,7 +116,12 @@
                     <h2 class="store-product-title">Yogurt</h2>
                     <p class="store-product-old-price">Old €1.40</p>
                     <p class="store-product-new-price">New €0.95</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button class="button button--offer add-to-cart"
+                        data-title="Yogurt"
+                        data-price="0.95"
+                        data-store="RIMI">
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -119,7 +130,12 @@
                     <h2 class="store-product-title">Bread</h2>
                     <p class="store-product-old-price">Old €2.00</p>
                     <p class="store-product-new-price">New €1.45</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button class="button button--offer add-to-cart"
+                        data-title="Bread"
+                        data-price="1.45"
+                        data-store="RIMI">
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -128,51 +144,73 @@
                     <h2 class="store-product-title">Chicken</h2>
                     <p class="store-product-old-price">Old €5.80</p>
                     <p class="store-product-new-price">New €4.69</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button class="button button--offer add-to-cart"
+                        data-title="Chicken"
+                        data-price="4.69"
+                        data-store="RIMI">
+                        Add to cart
+                    </button>
                 </article>
+
             </div>
         </section>
     </main>
+
     <footer class="footer">
-    <div class="footer-body">
-        <a href="#" class="footer-link">Contacts</a>
-        <a href="#" class="footer-link">Stores</a>
-        <a href="#" class="footer-link">Socials</a>
-    </div>
-</footer>
-<div class="auth-modal" id="authModal">
+        <div class="footer-body">
+            <a href="#" class="footer-link">Contacts</a>
+            <a href="#" class="footer-link">Stores</a>
+            <a href="#" class="footer-link">Socials</a>
+        </div>
+    </footer>
+
+    <div class="auth-modal" id="authModal">
         <div class="auth-modal-window">
-            <button class="auth-modal-close" type="button">&times;</button>
+            <button class="auth-modal-close">&times;</button>
 
             <h2 class="auth-modal-title">Create account</h2>
 
             <form class="auth-form" id="registerForm">
-                <label class="auth-form-label">
-                    <span>Username</span>
-                    <input type="text" name="username" class="auth-form-input" placeholder="Enter username" required>
-                </label>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="repeatPassword" placeholder="Repeat password" required>
 
-                <label class="auth-form-label">
-                    <span>Email</span>
-                    <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
-                </label>
-
-                <label class="auth-form-label">
-                    <span>Password</span>
-                    <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
-                </label>
-
-                <label class="auth-form-label">
-                    <span>Repeat password</span>
-                    <input type="password" name="repeatPassword" class="auth-form-input" placeholder="Repeat password" required>
-                </label>
-
-                <button class="button button--primary auth-form-submit" type="submit">
-                    Register
-                </button>
+                <button class="button button--primary">Register</button>
             </form>
         </div>
     </div>
-    <script src="script.js"></script>
+    <div class="settings-modal" id="settingsModal">
+    <div class="settings-modal-window">
+        <button class="settings-modal-close" type="button">&times;</button>
+
+        <h2 class="settings-modal-title">Settings</h2>
+
+        <form class="settings-form" id="settingsForm">
+            <label class="settings-form-row">
+                <span>Dark mode</span>
+                <input type="checkbox" id="darkModeToggle">
+            </label>
+
+            <label class="settings-form-row">
+                <span>Large text</span>
+                <input type="checkbox" id="largeTextToggle">
+            </label>
+
+            <label class="settings-form-row">
+                <span>Accent color</span>
+                <select id="accentColorSelect" class="settings-select">
+                    <option value="orange">Orange</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+            </label>
+
+            <button class="button button--primary settings-save-button" type="submit">
+                Save settings
+            </button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
