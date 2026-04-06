@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Radar | MAXIMA</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header class="header">
@@ -37,27 +37,24 @@
         </nav>
 
         <div class="header-actions">
-            <button 
-                class="header-cart-button button"
-                type="button"
-            >
-                Shoping Cart
-            </button>
-            <button class="header-acount-button" 
-            type="button"
-            >
-            </button>
+            <a href="./cart.html" class="header-cart-button button">
+                Cart (<span class="cart-count">0</span>)
+            </a>
+
+            <button class="header-acount-button" type="button"></button>
+
             <div class="profile-menu">
                 <div class="profile-menu-body">
                     <p class="profile-name">Guest</p>
                     <button class="profile-link profile-register-button" type="button">Register</button>
                     <a href="#" class="profile-link">Profile</a>
-                    <a href="#" class="profile-link">Settings</a>
+                    <button class="profile-link profile-settings-button" type="button">Settings</button>
                     <a href="#" class="profile-link">Logout</a>
                 </div>
             </div>
         </div>
     </header>
+
     <main class="content">
         <section class="store-hero">
             <div class="store-hero-body">
@@ -84,7 +81,15 @@
                     <h2 class="store-product-title">Bread</h2>
                     <p class="store-product-old-price">Old €2.20</p>
                     <p class="store-product-new-price">New €1.49</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
+                        data-title="Bread"
+                        data-price="1.49"
+                        data-store="MAXIMA"
+                    >
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -93,7 +98,15 @@
                     <h2 class="store-product-title">Milk 2L</h2>
                     <p class="store-product-old-price">Old €1.50</p>
                     <p class="store-product-new-price">New €0.99</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
+                        data-title="Milk 2L"
+                        data-price="0.99"
+                        data-store="MAXIMA"
+                    >
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -102,7 +115,15 @@
                     <h2 class="store-product-title">Pasta</h2>
                     <p class="store-product-old-price">Old €2.10</p>
                     <p class="store-product-new-price">New €1.39</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
+                        data-title="Pasta"
+                        data-price="1.39"
+                        data-store="MAXIMA"
+                    >
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -111,7 +132,15 @@
                     <h2 class="store-product-title">Cheese</h2>
                     <p class="store-product-old-price">Old €4.49</p>
                     <p class="store-product-new-price">New €3.59</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
+                        data-title="Cheese"
+                        data-price="3.59"
+                        data-store="MAXIMA"
+                    >
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -120,7 +149,15 @@
                     <h2 class="store-product-title">Orange Juice</h2>
                     <p class="store-product-old-price">Old €3.30</p>
                     <p class="store-product-new-price">New €2.39</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
+                        data-title="Orange Juice"
+                        data-price="2.39"
+                        data-store="MAXIMA"
+                    >
+                        Add to cart
+                    </button>
                 </article>
 
                 <article class="store-product-card">
@@ -129,19 +166,29 @@
                     <h2 class="store-product-title">Chicken Fillet</h2>
                     <p class="store-product-old-price">Old €6.20</p>
                     <p class="store-product-new-price">New €4.99</p>
-                    <a href="#" class="button button--offer">View deal</a>
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
+                        data-title="Chicken Fillet"
+                        data-price="4.99"
+                        data-store="MAXIMA"
+                    >
+                        Add to cart
+                    </button>
                 </article>
             </div>
         </section>
     </main>
+
     <footer class="footer">
-    <div class="footer-body">
-        <a href="#" class="footer-link">Contacts</a>
-        <a href="#" class="footer-link">Stores</a>
-        <a href="#" class="footer-link">Socials</a>
-    </div>
-</footer>
-<div class="auth-modal" id="authModal">
+        <div class="footer-body">
+            <a href="#" class="footer-link">Contacts</a>
+            <a href="#" class="footer-link">Stores</a>
+            <a href="#" class="footer-link">Socials</a>
+        </div>
+    </footer>
+
+    <div class="auth-modal" id="authModal">
         <div class="auth-modal-window">
             <button class="auth-modal-close" type="button">&times;</button>
 
@@ -174,5 +221,37 @@
             </form>
         </div>
     </div>
+    <div class="settings-modal" id="settingsModal">
+    <div class="settings-modal-window">
+        <button class="settings-modal-close" type="button">&times;</button>
+
+        <h2 class="settings-modal-title">Settings</h2>
+
+        <form class="settings-form" id="settingsForm">
+            <label class="settings-form-row">
+                <span>Dark mode</span>
+                <input type="checkbox" id="darkModeToggle">
+            </label>
+
+            <label class="settings-form-row">
+                <span>Large text</span>
+                <input type="checkbox" id="largeTextToggle">
+            </label>
+
+            <label class="settings-form-row">
+                <span>Accent color</span>
+                <select id="accentColorSelect" class="settings-select">
+                    <option value="orange">Orange</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+            </label>
+
+            <button class="button button--primary settings-save-button" type="submit">
+                Save settings
+            </button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

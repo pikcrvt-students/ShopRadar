@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Radar | Cart</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a href="./home.html" class="header-logo">
+            <img 
+                class="headerlogoimg"
+                src="../images/logo.png" 
+                alt="Shop Radar Logo"
+                height="40"
+                loading="lazy"
+            />
+        </a>
+
+        <nav class="header-menu">
+            <ul class="header-menu-list">
+                <li class="header-menu-item">
+                    <a href="./home.html" class="header-menu-link">Home</a>
+                </li>
+                <li class="header-menu-item">
+                    <a href="./lidl.html" class="header-menu-link">LIDL</a>
+                </li>
+                <li class="header-menu-item">
+                    <a href="./maxima.html" class="header-menu-link">MAXIMA</a>
+                </li>
+                <li class="header-menu-item">
+                    <a href="./rimi.html" class="header-menu-link">RIMI</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <a href="./cart.html" class="header-cart-button button">
+                Cart (<span class="cart-count">0</span>)
+            </a>
+
+            <button class="header-acount-button" type="button"></button>
+
+            <div class="profile-menu">
+                <div class="profile-menu-body">
+                    <p class="profile-name">Guest</p>
+                    <button class="profile-link profile-register-button" type="button">Register</button>
+                    <a href="#" class="profile-link">Profile</a>
+                    <button class="profile-link profile-settings-button" type="button">Settings</button>
+                    <a href="#" class="profile-link">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <section class="cart-page">
+            <div class="cart-page-body">
+                <h1 class="cart-page-title">Shopping Cart</h1>
+
+                <div id="cart-items" class="cart-items"></div>
+
+                <div class="cart-summary">
+                    <p class="cart-total">Total: <span id="cart-total">€0.00</span></p>
+
+                    <div class="cart-summary-actions">
+                        <button type="button" class="button button--secondary" id="clear-cart-button">
+                            Clear cart
+                        </button>
+                        <a href="./home.html" class="button button--primary">
+                            Continue shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-body">
+            <a href="#" class="footer-link">Contacts</a>
+            <a href="#" class="footer-link">Stores</a>
+            <a href="#" class="footer-link">Socials</a>
+        </div>
+    </footer>
+
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-window">
+            <button class="auth-modal-close" type="button">&times;</button>
+
+            <h2 class="auth-modal-title">Create account</h2>
+
+            <form class="auth-form" id="registerForm">
+                <label class="auth-form-label">
+                    <span>Username</span>
+                    <input type="text" name="username" class="auth-form-input" placeholder="Enter username" required>
+                </label>
+
+                <label class="auth-form-label">
+                    <span>Email</span>
+                    <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
+                </label>
+
+                <label class="auth-form-label">
+                    <span>Password</span>
+                    <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
+                </label>
+
+                <label class="auth-form-label">
+                    <span>Repeat password</span>
+                    <input type="password" name="repeatPassword" class="auth-form-input" placeholder="Repeat password" required>
+                </label>
+
+                <button class="button button--primary auth-form-submit" type="submit">
+                    Register
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="settings-modal" id="settingsModal">
+    <div class="settings-modal-window">
+        <button class="settings-modal-close" type="button">&times;</button>
+
+        <h2 class="settings-modal-title">Settings</h2>
+
+        <form class="settings-form" id="settingsForm">
+            <label class="settings-form-row">
+                <span>Dark mode</span>
+                <input type="checkbox" id="darkModeToggle">
+            </label>
+
+            <label class="settings-form-row">
+                <span>Large text</span>
+                <input type="checkbox" id="largeTextToggle">
+            </label>
+
+            <label class="settings-form-row">
+                <span>Accent color</span>
+                <select id="accentColorSelect" class="settings-select">
+                    <option value="orange">Orange</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+            </label>
+
+            <button class="button button--primary settings-save-button" type="submit">
+                Save settings
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
