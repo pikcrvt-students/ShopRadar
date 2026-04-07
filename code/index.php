@@ -1,4 +1,5 @@
 <?php 
+// Testing
 // require __DIR__.'/vendor/autoload.php';
 
 // $url = 'https://www.rimi.lv/e-veikals/lv/akcijas-piedavajumi';
