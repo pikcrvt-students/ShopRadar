@@ -1,6 +1,6 @@
-CREATE DATABASE profilsistēma;
+CREATE DATABASE profilsistema;
 
-USE profilsistēma;
+USE profilsistema;
 
 CREATE TABLE lietotaji (
     id INT AUTO_INCREMENT PRIMARY KEY,

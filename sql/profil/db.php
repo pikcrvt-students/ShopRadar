@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db = "profilsistēma";
+$db = "profilsistema";
 
 $conn = new mysqli($host, $user, $pass, $db);
 
