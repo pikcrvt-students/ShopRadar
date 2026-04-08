@@ -1,25 +1,20 @@
-<?php include 'db.php'; ?>
-
-<form method="POST">
-    Lietotājvārds: <input type="text" name="lietotajvards"><br>
-    Epasts: <input type="email" name="epasts"><br>
-    Parole: <input type="password" name="parole"><br>
-    <button type="submit" name="register">Reģistrēties</button>
-</form>
-
 <?php
+session_start();
+include 'db.php';
+
 if (isset($_POST['register'])) {
+
     $lietotajvards = $_POST['lietotajvards'];
     $epasts = $_POST['epasts'];
     $parole = password_hash($_POST['parole'], PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO lietotaji (lietotajvards, epasts, parole)
-            VALUES ('$lietotajvards', '$epasts', '$parole')";
+    $stmt = $conn->prepare("INSERT INTO lietotaji (lietotajvards, epasts, parole) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $lietotajvards, $epasts, $parole);
 
-    if ($conn->query($sql)) {
-        echo "Reģistrācija veiksmīga!";
+    if ($stmt->execute()) {
+        echo "Reģistrācija veiksmīga! <a href='home.php'>Go Home</a>";
     } else {
-        echo "Kļūda: " . $conn->error;
+        echo "Kļūda: " . $stmt->error;
     }
 }
-?>
+?>  
