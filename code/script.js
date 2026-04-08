@@ -1,9 +1,40 @@
 function getCart() {
-    return JSON.parse(localStorage.getItem('cart')) || [];
+    try {
+        return JSON.parse(localStorage.getItem('cart')) || [];
+    } catch {
+        return [];
+    }
 }
 
 function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function saveAuth(data) {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('currentUser', JSON.stringify(data.user));
+}
+
+function clearAuth() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
+}
+
+function getToken() {
+    return localStorage.getItem('token');
+}
+
+function getCurrentUser() {
+    try {
+        return JSON.parse(localStorage.getItem('currentUser')) || null;
+    } catch {
+        return null;
+    }
+}
+
+function logoutUser() {
+    clearAuth();
+    updateProfileUI();
 }
 
 function updateCartCount() {
@@ -18,7 +49,9 @@ function updateCartCount() {
 
 function addToCart(product) {
     const cart = getCart();
-    const existingItem = cart.find(item => item.title === product.title && item.store === product.store);
+    const existingItem = cart.find(
+        item => item.title === product.title && item.store === product.store
+    );
 
     if (existingItem) {
         existingItem.quantity += 1;
@@ -64,9 +97,9 @@ function initAddToCartButtons() {
     buttons.forEach(button => {
         button.addEventListener('click', () => {
             const product = {
-                title: button.dataset.title,
-                price: button.dataset.price,
-                store: button.dataset.store
+                title: button.dataset.title || 'Unknown product',
+                price: button.dataset.price || 0,
+                store: button.dataset.store || 'Unknown store'
             };
 
             addToCart(product);
@@ -97,7 +130,7 @@ function renderCartPage() {
     let total = 0;
 
     cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
+        const itemTotal = Number(item.price) * item.quantity;
         total += itemTotal;
 
         const article = document.createElement('article');
@@ -107,7 +140,7 @@ function renderCartPage() {
             <div class="cart-item-info">
                 <p class="cart-item-store">${item.store}</p>
                 <h2 class="cart-item-title">${item.title}</h2>
-                <p class="cart-item-price">€${item.price.toFixed(2)} × ${item.quantity}</p>
+                <p class="cart-item-price">€${Number(item.price).toFixed(2)} × ${item.quantity}</p>
             </div>
 
             <div class="cart-item-actions">
@@ -145,15 +178,15 @@ function initHeaderMenuAnimation() {
             if (!currentLink) return;
 
             const targetHref = link.getAttribute('href');
-
-            if (link === currentLink) return;
+            if (!targetHref || link === currentLink) return;
 
             e.preventDefault();
             currentLink.classList.add('is-leaving');
+            document.body.classList.add('is-leaving');
 
             setTimeout(() => {
                 window.location.href = targetHref;
-            }, 350);
+            }, 300);
         });
     });
 }
@@ -178,10 +211,52 @@ function initProfileMenu() {
     });
 }
 
+function updateProfileUI() {
+    const currentUser = getCurrentUser();
+
+    const profileName = document.querySelector('.profile-name');
+    const registerButton = document.querySelector('.profile-register-button');
+    const loginButton = document.querySelector('.profile-login-button');
+    const logoutButton = document.querySelector('.profile-logout-button');
+
+    if (profileName) {
+        profileName.textContent = currentUser ? currentUser.username : 'Guest';
+    }
+
+    if (registerButton) {
+        registerButton.style.display = currentUser ? 'none' : '';
+    }
+
+    if (loginButton) {
+        loginButton.style.display = currentUser ? 'none' : '';
+    }
+
+    if (logoutButton) {
+        logoutButton.style.display = currentUser ? '' : 'none';
+    }
+}
+
+function initLogoutButton() {
+    const logoutButton = document.querySelector('.profile-logout-button');
+    const profileMenu = document.querySelector('.profile-menu');
+
+    if (!logoutButton) return;
+
+    logoutButton.addEventListener('click', () => {
+        logoutUser();
+
+        if (profileMenu) {
+            profileMenu.classList.remove('is-open');
+        }
+
+        alert('Logged out');
+    });
+}
+
 function initRegisterModal() {
     const modal = document.querySelector('#authModal');
     const openButton = document.querySelector('.profile-register-button');
-    const closeButton = document.querySelector('.auth-modal-close');
+    const closeButton = modal?.querySelector('.auth-modal-close');
     const registerForm = document.querySelector('#registerForm');
     const profileMenu = document.querySelector('.profile-menu');
 
@@ -204,23 +279,95 @@ function initRegisterModal() {
         }
     });
 
-    registerForm.addEventListener('submit', (e) => {
+    registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(registerForm);
-        const username = formData.get('username').trim();
-        const email = formData.get('email').trim();
-        const password = formData.get('password');
-        const repeatPassword = formData.get('repeatPassword');
+        const formData = Object.fromEntries(new FormData(registerForm).entries());
 
-        if (password !== repeatPassword) {
-            alert('Passwords do not match');
-            return;
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (!result.ok) {
+                alert(result.message || 'Registration failed');
+                return;
+            }
+
+            saveAuth(result);
+            registerForm.reset();
+            modal.classList.remove('is-open');
+            updateProfileUI();
+            alert('Registration successful');
+        } catch (error) {
+            console.error('Register error:', error);
+            alert('Server error');
         }
+    });
+}
 
-        alert(`Registered: ${username} (${email})`);
-        registerForm.reset();
+function initLoginModal() {
+    const modal = document.querySelector('#loginModal');
+    const openButton = document.querySelector('.profile-login-button');
+    const closeButton = modal?.querySelector('.login-modal-close');
+    const loginForm = document.querySelector('#loginForm');
+    const profileMenu = document.querySelector('.profile-menu');
+
+    if (!modal || !openButton || !closeButton || !loginForm) return;
+
+    openButton.addEventListener('click', () => {
+        modal.classList.add('is-open');
+        if (profileMenu) {
+            profileMenu.classList.remove('is-open');
+        }
+    });
+
+    closeButton.addEventListener('click', () => {
         modal.classList.remove('is-open');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('is-open');
+        }
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = Object.fromEntries(new FormData(loginForm).entries());
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (!result.ok) {
+                alert(result.message || 'Login failed');
+                return;
+            }
+
+            saveAuth(result);
+            loginForm.reset();
+            modal.classList.remove('is-open');
+            updateProfileUI();
+            alert(`Welcome back, ${result.user.username}`);
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Server error');
+        }
     });
 }
 
@@ -230,38 +377,37 @@ function initHomeFilters() {
     const items = document.querySelectorAll('.product-tabel-offer');
     const input = document.querySelector('.search-input');
     const container = document.querySelector('.product-tabel');
-    const viewDealsButton = document.querySelector('.button--primary');
+    const viewDealsButton = document.querySelector('.button--primary[href="#offers"]');
 
     function applyFilters() {
         const activeFilters = [...filters]
             .filter(filter => filter.classList.contains('is-active'))
-            .map(filter => filter.textContent.trim());
+            .map(filter => filter.textContent.trim().toUpperCase());
 
         const searchValue = input ? input.value.trim().toLowerCase() : '';
 
         items.forEach(item => {
-            const store = item.dataset.store;
+            const store = (item.dataset.store || '').trim().toUpperCase();
             const titleElement = item.querySelector('.product-offer-card-title');
             const title = titleElement ? titleElement.textContent.toLowerCase() : '';
 
             let visible = true;
-
             const activeStoreFilters = activeFilters.filter(filter => filter !== 'CHEAPEST');
 
             if (activeStoreFilters.length > 0 && !activeStoreFilters.includes(store)) {
                 visible = false;
             }
 
-            if (!title.includes(searchValue)) {
+            if (searchValue && !title.includes(searchValue)) {
                 visible = false;
             }
 
-            item.style.display = visible ? 'block' : 'none';
+            item.style.display = visible ? 'flex' : 'none';
         });
 
         if (activeFilters.includes('CHEAPEST') && container) {
             const sortedItems = [...items].sort((a, b) => {
-                return Number(a.dataset.price) - Number(b.dataset.price);
+                return Number(a.dataset.price || 0) - Number(b.dataset.price || 0);
             });
 
             sortedItems.forEach(item => container.appendChild(item));
@@ -284,15 +430,11 @@ function initHomeFilters() {
 
     if (viewDealsButton) {
         viewDealsButton.addEventListener('click', (e) => {
-            if (viewDealsButton.getAttribute('href') === '#offers') {
-                e.preventDefault();
+            e.preventDefault();
 
-                const offersSection = document.querySelector('#offers');
-                if (offersSection) {
-                    offersSection.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+            const offersSection = document.querySelector('#offers');
+            if (offersSection) {
+                offersSection.scrollIntoView({ behavior: 'smooth' });
             }
         });
     }
@@ -314,7 +456,6 @@ function initStoreSearch() {
         });
     });
 }
-
 
 function applySavedSettings() {
     const savedSettings = JSON.parse(localStorage.getItem('settings')) || {};
@@ -343,8 +484,8 @@ function applySavedSettings() {
         largeTextToggle.checked = !!savedSettings.largeText;
     }
 
-    if (accentColorSelect && savedSettings.accentColor) {
-        accentColorSelect.value = savedSettings.accentColor;
+    if (accentColorSelect) {
+        accentColorSelect.value = savedSettings.accentColor || 'orange';
     }
 }
 
@@ -388,10 +529,42 @@ function initSettingsModal() {
         modal.classList.remove('is-open');
     });
 }
+
+async function restoreUserFromToken() {
+    const token = getToken();
+
+    if (!token) {
+        updateProfileUI();
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/me', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (!result.ok) {
+            clearAuth();
+        } else {
+            localStorage.setItem('currentUser', JSON.stringify(result.user));
+        }
+    } catch (error) {
+        console.error('Restore user error:', error);
+    }
+
+    updateProfileUI();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderMenuAnimation();
     initProfileMenu();
     initRegisterModal();
+    initLoginModal();
+    initLogoutButton();
     initSettingsModal();
     initHomeFilters();
     initStoreSearch();
@@ -399,4 +572,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCartPage();
     updateCartCount();
     applySavedSettings();
+    restoreUserFromToken();
 });

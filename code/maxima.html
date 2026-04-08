@@ -10,13 +10,13 @@
 <body>
     <header class="header">
         <a href="./home.html" class="header-logo">
-            <img 
+            <img
                 class="headerlogoimg"
-                src="../images/logo.png" 
+                src="../images/logo.png"
                 alt="Shop Radar Logo"
                 height="40"
                 loading="lazy"
-            />
+            >
         </a>
 
         <nav class="header-menu">
@@ -41,15 +41,16 @@
                 Cart (<span class="cart-count">0</span>)
             </a>
 
-            <button class="header-acount-button" type="button"></button>
+            <button class="header-acount-button" type="button" aria-label="Open profile menu"></button>
 
             <div class="profile-menu">
                 <div class="profile-menu-body">
                     <p class="profile-name">Guest</p>
                     <button class="profile-link profile-register-button" type="button">Register</button>
+                    <button class="profile-link profile-login-button" type="button">Login</button>
                     <a href="#" class="profile-link">Profile</a>
                     <button class="profile-link profile-settings-button" type="button">Settings</button>
-                    <a href="#" class="profile-link">Logout</a>
+                    <button class="profile-link profile-logout-button" type="button" style="display: none;">Logout</button>
                 </div>
             </div>
         </div>
@@ -203,37 +204,62 @@
             </form>
         </div>
     </div>
-    <div class="settings-modal" id="settingsModal">
-    <div class="settings-modal-window">
-        <button class="settings-modal-close" type="button">&times;</button>
 
-        <h2 class="settings-modal-title">Settings</h2>
+    <div class="auth-modal" id="loginModal">
+        <div class="auth-modal-window">
+            <button class="auth-modal-close login-modal-close" type="button">&times;</button>
 
-        <form class="settings-form" id="settingsForm">
-            <label class="settings-form-row">
-                <span>Dark mode</span>
-                <input type="checkbox" id="darkModeToggle">
-            </label>
+            <h2 class="auth-modal-title">Login</h2>
 
-            <label class="settings-form-row">
-                <span>Large text</span>
-                <input type="checkbox" id="largeTextToggle">
-            </label>
+            <form class="auth-form" id="loginForm">
+                <label class="auth-form-label">
+                    <span>Email</span>
+                    <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
+                </label>
 
-            <label class="settings-form-row">
-                <span>Accent color</span>
-                <select id="accentColorSelect" class="settings-select">
-                    <option value="orange">Orange</option>
-                    <option value="blue">Blue</option>
-                    <option value="green">Green</option>
-                </select>
-            </label>
+                <label class="auth-form-label">
+                    <span>Password</span>
+                    <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
+                </label>
 
-            <button class="button button--primary settings-save-button" type="submit">
-                Save settings
-            </button>
-        </form>
+                <button class="button button--primary auth-form-submit" type="submit">
+                    Login
+                </button>
+            </form>
+        </div>
     </div>
-</div>
+
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-modal-window">
+            <button class="settings-modal-close" type="button">&times;</button>
+
+            <h2 class="settings-modal-title">Settings</h2>
+
+            <form class="settings-form" id="settingsForm">
+                <label class="settings-form-row">
+                    <span>Dark mode</span>
+                    <input type="checkbox" id="darkModeToggle">
+                </label>
+
+                <label class="settings-form-row">
+                    <span>Large text</span>
+                    <input type="checkbox" id="largeTextToggle">
+                </label>
+
+                <label class="settings-form-row">
+                    <span>Accent color</span>
+                    <select id="accentColorSelect" class="settings-select">
+                        <option value="orange">Orange</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                    </select>
+                </label>
+
+                <button class="button button--primary settings-save-button" type="submit">
+                    Save settings
+                </button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

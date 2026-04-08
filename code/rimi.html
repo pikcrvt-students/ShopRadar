@@ -9,19 +9,19 @@
 </head>
 <body>
     <header class="header">
-        <a href="./home.php" class="header-logo">
-            <img 
+        <a href="./home.html" class="header-logo">
+            <img
                 class="headerlogoimg"
-                src="../images/logo.png" 
+                src="../images/logo.png"
                 alt="Shop Radar Logo"
                 height="40"
                 loading="lazy"
-            />
+            >
         </a>
 
         <nav class="header-menu">
             <ul class="header-menu-list">
-                <li><a href="./home.php" class="header-menu-link">Home</a></li>
+                <li><a href="./home.html" class="header-menu-link">Home</a></li>
                 <li><a href="./lidl.html" class="header-menu-link">LIDL</a></li>
                 <li><a href="./maxima.html" class="header-menu-link">MAXIMA</a></li>
                 <li><a href="./rimi.html" class="header-menu-link is-current">RIMI</a></li>
@@ -33,15 +33,16 @@
                 Cart (<span class="cart-count">0</span>)
             </a>
 
-            <button class="header-acount-button" type="button"></button>
+            <button class="header-acount-button" type="button" aria-label="Open profile menu"></button>
 
             <div class="profile-menu">
                 <div class="profile-menu-body">
                     <p class="profile-name">Guest</p>
-                    <button class="profile-link profile-register-button">Register</button>
+                    <button class="profile-link profile-register-button" type="button">Register</button>
+                    <button class="profile-link profile-login-button" type="button">Login</button>
                     <a href="#" class="profile-link">Profile</a>
                     <button class="profile-link profile-settings-button" type="button">Settings</button>
-                    <a href="#" class="profile-link">Logout</a>
+                    <button class="profile-link profile-logout-button" type="button" style="display: none;">Logout</button>
                 </div>
             </div>
         </div>
@@ -76,28 +77,35 @@
                     <h2 class="store-product-title">Sviests saldkrējuma 82,5% 200g</h2>
                     <p class="store-product-old-price">Old €3.19</p>
                     <p class="store-product-new-price">New €1.39</p>
-                    <button class="button button--offer add-to-cart"
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
                         data-title="Sviests saldkrējuma 82,5% 200g"
                         data-price="1.39"
-                        data-store="RIMI">
+                        data-store="RIMI"
+                    >
                         Add to cart
                     </button>
                 </article>
 
                 <article class="store-product-card">
                     <div class="store-product-image">
-                        <img class="store-product-image img"
-                        src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_286441_KGM_LV" 
-                        alt="Kartupeļi saldie kg">
+                        <img
+                            src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_286441_KGM_LV"
+                            alt="Kartupeļi saldie kg"
+                        >
                     </div>
                     <p class="store-product-store">RIMI</p>
                     <h2 class="store-product-title">Kartupeļi saldie kg</h2>
                     <p class="store-product-old-price">Old €2.79</p>
                     <p class="store-product-new-price">New €1.99</p>
-                    <button class="button button--offer add-to-cart"
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
                         data-title="Kartupeļi saldie kg"
                         data-price="1.99"
-                        data-store="RIMI">
+                        data-store="RIMI"
+                    >
                         Add to cart
                     </button>
                 </article>
@@ -110,10 +118,13 @@
                     <h2 class="store-product-title">Avokado Nogatavināti Rimi (4gab) 500g</h2>
                     <p class="store-product-old-price">Old €3.99</p>
                     <p class="store-product-new-price">New €2.69</p>
-                    <button class="button button--offer add-to-cart"
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
                         data-title="Avokado Nogatavināti Rimi (4gab) 500g"
                         data-price="2.69"
-                        data-store="RIMI">
+                        data-store="RIMI"
+                    >
                         Add to cart
                     </button>
                 </article>
@@ -126,10 +137,13 @@
                     <h2 class="store-product-title">Grieķu jogurts Baltais bez piedevām 400g</h2>
                     <p class="store-product-old-price">Old €1.75</p>
                     <p class="store-product-new-price">New €1.39</p>
-                    <button class="button button--offer add-to-cart"
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
                         data-title="Grieķu jogurts Baltais bez piedevām 400g"
                         data-price="1.39"
-                        data-store="RIMI">
+                        data-store="RIMI"
+                    >
                         Add to cart
                     </button>
                 </article>
@@ -142,10 +156,13 @@
                     <h2 class="store-product-title">Olas Rimi Iecavas kūtī dētas A/L No.2,10 gab.</h2>
                     <p class="store-product-old-price">Old €3.29</p>
                     <p class="store-product-new-price">New €2.89</p>
-                    <button class="button button--offer add-to-cart"
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
                         data-title="Olas Rimi Iecavas kūtī dētas A/L No.2,10 gab."
                         data-price="2.89"
-                        data-store="RIMI">
+                        data-store="RIMI"
+                    >
                         Add to cart
                     </button>
                 </article>
@@ -158,10 +175,13 @@
                     <h2 class="store-product-title">Biezpiena sieriņš Kārums vaniļas 45g</h2>
                     <p class="store-product-old-price">Old €0.52</p>
                     <p class="store-product-new-price">New €0.39</p>
-                    <button class="button button--offer add-to-cart"
+                    <button
+                        class="button button--offer add-to-cart"
+                        type="button"
                         data-title="Biezpiena sieriņš Kārums vaniļas 45g"
                         data-price="0.39"
-                        data-store="RIMI">
+                        data-store="RIMI"
+                    >
                         Add to cart
                     </button>
                 </article>
@@ -180,17 +200,58 @@
 
     <div class="auth-modal" id="authModal">
         <div class="auth-modal-window">
-            <button class="auth-modal-close">&times;</button>
+            <button class="auth-modal-close" type="button">&times;</button>
 
             <h2 class="auth-modal-title">Create account</h2>
 
             <form class="auth-form" id="registerForm">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="password" name="repeatPassword" placeholder="Repeat password" required>
+                <label class="auth-form-label">
+                    <span>Username</span>
+                    <input type="text" name="username" class="auth-form-input" placeholder="Enter username" required>
+                </label>
 
-                <button class="button button--primary">Register</button>
+                <label class="auth-form-label">
+                    <span>Email</span>
+                    <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
+                </label>
+
+                <label class="auth-form-label">
+                    <span>Password</span>
+                    <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
+                </label>
+
+                <label class="auth-form-label">
+                    <span>Repeat password</span>
+                    <input type="password" name="repeatPassword" class="auth-form-input" placeholder="Repeat password" required>
+                </label>
+
+                <button class="button button--primary auth-form-submit" type="submit">
+                    Register
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="auth-modal" id="loginModal">
+        <div class="auth-modal-window">
+            <button class="auth-modal-close login-modal-close" type="button">&times;</button>
+
+            <h2 class="auth-modal-title">Login</h2>
+
+            <form class="auth-form" id="loginForm">
+                <label class="auth-form-label">
+                    <span>Email</span>
+                    <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
+                </label>
+
+                <label class="auth-form-label">
+                    <span>Password</span>
+                    <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
+                </label>
+
+                <button class="button button--primary auth-form-submit" type="submit">
+                    Login
+                </button>
             </form>
         </div>
     </div>
