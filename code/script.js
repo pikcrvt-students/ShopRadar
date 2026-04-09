@@ -10,20 +10,6 @@ function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-function saveAuth(data) {
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('currentUser', JSON.stringify(data.user));
-}
-
-function clearAuth() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
-}
-
-function getToken() {
-    return localStorage.getItem('token');
-}
-
 function getCurrentUser() {
     try {
         return JSON.parse(localStorage.getItem('currentUser')) || null;
@@ -32,9 +18,12 @@ function getCurrentUser() {
     }
 }
 
-function logoutUser() {
-    clearAuth();
-    updateProfileUI();
+function setCurrentUser(user) {
+    if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+    } else {
+        localStorage.removeItem('currentUser');
+    }
 }
 
 function updateCartCount() {
@@ -242,13 +231,22 @@ function initLogoutButton() {
 
     if (!logoutButton) return;
 
-    logoutButton.addEventListener('click', () => {
-        logoutUser();
+    logoutButton.addEventListener('click', async () => {
+        try {
+            await fetch('/api/logout', {
+                method: 'POST'
+            });
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+
+        setCurrentUser(null);
 
         if (profileMenu) {
             profileMenu.classList.remove('is-open');
         }
 
+        updateProfileUI();
         alert('Logged out');
     });
 }
@@ -300,11 +298,11 @@ function initRegisterModal() {
                 return;
             }
 
-            saveAuth(result);
+            setCurrentUser(result.user);
             registerForm.reset();
             modal.classList.remove('is-open');
             updateProfileUI();
-            alert('Registration successful');
+            alert(result.message || 'Registration successful');
         } catch (error) {
             console.error('Register error:', error);
             alert('Server error');
@@ -359,11 +357,11 @@ function initLoginModal() {
                 return;
             }
 
-            saveAuth(result);
+            setCurrentUser(result.user);
             loginForm.reset();
             modal.classList.remove('is-open');
             updateProfileUI();
-            alert(`Welcome back, ${result.user.username}`);
+            alert(result.message || `Welcome back, ${result.user.username}`);
         } catch (error) {
             console.error('Login error:', error);
             alert('Server error');
@@ -530,30 +528,18 @@ function initSettingsModal() {
     });
 }
 
-async function restoreUserFromToken() {
-    const token = getToken();
-
-    if (!token) {
-        updateProfileUI();
-        return;
-    }
-
+async function restoreUserSession() {
     try {
-        const response = await fetch('/api/me', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-
+        const response = await fetch('/api/me');
         const result = await response.json();
 
-        if (!result.ok) {
-            clearAuth();
+        if (result.ok && result.user) {
+            setCurrentUser(result.user);
         } else {
-            localStorage.setItem('currentUser', JSON.stringify(result.user));
+            setCurrentUser(null);
         }
     } catch (error) {
-        console.error('Restore user error:', error);
+        console.error('Restore session error:', error);
     }
 
     updateProfileUI();
@@ -572,5 +558,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCartPage();
     updateCartCount();
     applySavedSettings();
-    restoreUserFromToken();
+    restoreUserSession();
 });
