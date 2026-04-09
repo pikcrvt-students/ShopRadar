@@ -1194,7 +1194,156 @@ h6 {
     border-radius: 24px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
 }
+.profile-menu-header {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
+.profile-menu-user-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+.profile-email {
+    margin: 0;
+    font-size: 12px;
+    color: #bdbdbd;
+}
+
+.profile-avatar,
+.profile-modal-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #ff8a00, #ff5e00);
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+}
+
+.profile-modal-avatar {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+}
+
+.profile-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 1000;
+}
+
+.profile-modal.is-open {
+    display: flex;
+}
+
+.profile-modal-window {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    padding: 28px;
+    border-radius: 24px;
+    background-color: #111111;
+    color: white;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.profile-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 30px;
+    line-height: 1;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.profile-modal-header {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+    margin-bottom: 24px;
+}
+
+.profile-modal-title {
+    margin: 0 0 4px;
+}
+
+.profile-modal-subtitle {
+    margin: 0;
+    color: #bdbdbd;
+    font-size: 14px;
+}
+
+.profile-modal-body {
+    display: grid;
+    gap: 14px;
+}
+
+.profile-info-card {
+    padding: 14px 16px;
+    border-radius: 16px;
+    background-color: #1b1b1b;
+}
+
+.profile-info-label {
+    margin: 0 0 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9f9f9f;
+}
+
+.profile-info-value {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.profile-modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+.auth-switch-text {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #222;
+}
+
+.auth-switch-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 6px;
+    font: inherit;
+    font-weight: 700;
+    color: #b45a00;
+    cursor: pointer;
+}
+
+.auth-switch-button:hover {
+    text-decoration: underline;
+}
 @media (max-width: 1024px) {
     .header {
         flex-wrap: wrap;

@@ -43,15 +43,23 @@
 
             <button class="header-acount-button" type="button"></button>
 
-            <div class="profile-menu">
-                <div class="profile-menu-body">
-                    <p class="profile-name">Guest</p>
-                    <button class="profile-link profile-register-button" type="button">Register</button>
-                    <a href="#" class="profile-link">Profile</a>
-                    <button class="profile-link profile-settings-button" type="button">Settings</button>
-                    <a href="#" class="profile-link">Logout</a>
-                </div>
-            </div>
+                <div class="profile-menu">
+                    <div class="profile-menu-body">
+                        <div class="profile-menu-header">
+                        <div class="profile-avatar">G</div>
+                        <div class="profile-menu-user-info">
+                            <p class="profile-name">Guest</p>
+                            <p class="profile-email">Not logged in</p>
+                        </div>
+                    </div>
+
+        <button class="profile-link profile-register-button" type="button">Register</button>
+        <button class="profile-link profile-login-button" type="button">Login</button>
+        <button class="profile-link profile-view-button" type="button">Profile</button>
+        <button class="profile-link profile-settings-button" type="button">Settings</button>
+        <button class="profile-link profile-logout-button" type="button">Logout</button>
+    </div>
+</div>
         </div>
     </header>
 
@@ -272,71 +280,76 @@
         </div>
     </footer>
 
-    <div class="auth-modal" id="authModal">
-        <div class="auth-modal-window">
-            <button class="auth-modal-close" type="button">&times;</button>
+<!-- LOGIN MODAL -->
+<div class="auth-modal" id="loginModal">
+    <div class="auth-modal-window">
+        <button class="login-modal-close" type="button">&times;</button>
 
-            <h2 class="auth-modal-title">Create account</h2>
+        <h2 class="auth-modal-title">Login</h2>
 
-            <form class="auth-form" id="registerForm">
-                <label class="auth-form-label">
-                    <span>Username</span>
-                    <input type="text" name="username" class="auth-form-input" placeholder="Enter username" required>
-                </label>
+        <form class="auth-form" id="loginForm">
+            <label class="auth-form-label">
+                <span>Email</span>
+                <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
+            </label>
 
-                <label class="auth-form-label">
-                    <span>Email</span>
-                    <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
-                </label>
+            <label class="auth-form-label">
+                <span>Password</span>
+                <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
+            </label>
 
-                <label class="auth-form-label">
-                    <span>Password</span>
-                    <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
-                </label>
+            <button class="button button--primary auth-form-submit" type="submit">
+                Login
+            </button>
+        </form>
 
-                <label class="auth-form-label">
-                    <span>Repeat password</span>
-                    <input type="password" name="repeatPassword" class="auth-form-input" placeholder="Repeat password" required>
-                </label>
-
-                <button class="button button--primary auth-form-submit" type="submit">
-                    Register
-                </button>
-            </form>
-        </div>
+        <p class="auth-switch-text">
+            No account yet?
+            <button type="button" class="auth-switch-button" id="openRegisterFromLogin">
+                Register
+            </button>
+        </p>
     </div>
+</div>
 
-    <div class="settings-modal" id="settingsModal">
-        <div class="settings-modal-window">
-            <button class="settings-modal-close" type="button">&times;</button>
+<!-- REGISTER MODAL -->
+<div class="auth-modal" id="authModal">
+    <div class="auth-modal-window">
+        <button class="auth-modal-close" type="button">&times;</button>
 
-            <h2 class="settings-modal-title">Settings</h2>
+        <form class="auth-form" id="registerForm">
+            <label class="auth-form-label">
+                <span>Username</span>
+                <input type="text" name="username" class="auth-form-input" placeholder="Enter username" required>
+            </label>
 
-            <form class="settings-form" id="settingsForm">
-                <label class="settings-form-row">
-                    <span>Dark mode</span>
-                    <input type="checkbox" name="darkMode" id="darkModeToggle">
-                </label>
+            <label class="auth-form-label">
+                <span>Email</span>
+                <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
+            </label>
 
-                <label class="settings-form-row">
-                    <span>Large text</span>
-                    <input type="checkbox" name="largeText" id="largeTextToggle">
-                </label>
+            <label class="auth-form-label">
+                <span>Password</span>
+                <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
+            </label>
 
-                <label class="settings-form-row">
-                    <span>Accent color</span>
-                    <select name="accentColor" id="accentColorSelect" class="settings-select">
-                        <option value="orange">Orange</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                    </select>
-                </label>
+            <label class="auth-form-label">
+                <span>Repeat password</span>
+                <input type="password" name="repeatPassword" class="auth-form-input" placeholder="Repeat password" required>
+            </label>
 
-                <button class="button button--primary settings-save-button" type="submit">
-                    Save settings
-                </button>
-            </form>
-        </div>
+            <button class="button button--primary auth-form-submit" type="submit">
+                Register
+            </button>
+        </form>
+
+        <p class="auth-switch-text">
+            Already have an account?
+            <button type="button" class="auth-switch-button" id="openLoginFromRegister">
+                Login
+            </button>
+        </p>
     </div>
+</div>
 </body>
 </html>
