@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Radar | Home</title>
-    <link rel="stylesheet" href="/styles.css">
-    <script src="/script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header class="header">
         <a href="./home.html" class="header-logo">
-            <img
+            <img 
                 class="headerlogoimg"
-                src="../images/logo.png"
+                src="../images/logo.png" 
                 alt="Shop Radar Logo"
                 height="40"
                 loading="lazy"
@@ -41,16 +41,15 @@
                 Cart (<span class="cart-count">0</span>)
             </a>
 
-            <button class="header-acount-button" type="button" aria-label="Open profile menu"></button>
+            <button class="header-acount-button" type="button"></button>
 
             <div class="profile-menu">
                 <div class="profile-menu-body">
                     <p class="profile-name">Guest</p>
                     <button class="profile-link profile-register-button" type="button">Register</button>
-                    <button class="profile-link profile-login-button" type="button">Login</button>
                     <a href="#" class="profile-link">Profile</a>
                     <button class="profile-link profile-settings-button" type="button">Settings</button>
-                    <button class="profile-link profile-logout-button" type="button" style="display: none;">Logout</button>
+                    <a href="#" class="profile-link">Logout</a>
                 </div>
             </div>
         </div>
@@ -82,10 +81,7 @@
                     <p class="banner-card-label">Top offer</p>
 
                     <div class="banner-card-image">
-                        <img
-                            src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_293677_PCE_LV"
-                            alt="Sviests saldkrējuma 82,5% 200g"
-                        >
+                        <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_293677_PCE_LV" alt="Sviests saldkrējuma 82,5% 200g">
                     </div>
 
                     <div class="banner-card-content">
@@ -121,128 +117,121 @@
         </section>
 
         <section class="product" id="offers">
-            <div class="product-body">
-                <div class="product-tabel">
-                    <div class="product-tabel-offer" data-store="RIMI" data-price="1.39">
-                        <div class="store-product-image">
-                            <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_293677_PCE_LV" alt="Sviests saldkrējuma 82,5% 200g">
-                        </div>
-                        <p class="product-offer-card-store">RIMI</p>
-                        <h2 class="product-offer-card-title">Sviests saldkrējuma 82,5% 200g</h2>
-                        <div class="product-offer-card-prices">
-                            <span class="product-offer-card-old-price">€3.19</span>
-                            <span class="product-offer-card-new-price">€1.39</span>
-                        </div>
-                        <button
-                            class="button button--offer add-to-cart"
-                            type="button"
-                            data-title="Sviests saldkrējuma 82,5% 200g"
-                            data-price="1.39"
-                            data-store="RIMI"
-                        >
-                            Add to cart
-                        </button>
-                    </div>
+    <div class="product-body">
+        <div class="product-tabel">
 
-                    <div class="product-tabel-offer" data-store="RIMI" data-price="1.99">
-                        <div class="store-product-image">
-                            <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_286441_KGM_LV" alt="Kartupeļi saldie kg">
-                        </div>
-                        <p class="product-offer-card-store">RIMI</p>
-                        <h2 class="product-offer-card-title">Kartupeļi saldie kg</h2>
-                        <div class="product-offer-card-prices">
-                            <span class="product-offer-card-old-price">€2.79</span>
-                            <span class="product-offer-card-new-price">€1.99</span>
-                        </div>
-                        <button
-                            class="button button--offer add-to-cart"
-                            type="button"
-                            data-title="Kartupeļi saldie kg"
-                            data-price="1.99"
-                            data-store="RIMI"
-                        >
-                            Add to cart
-                        </button>
-                    </div>
+            <!-- РЕАЛЬНЫЕ ТОВАРЫ RIMI -->
 
-                    <div class="product-tabel-offer" data-store="LIDL" data-price="0.99">
-                        <div class="store-product-image"></div>
-                        <p class="product-offer-card-store">LIDL</p>
-                        <h2 class="product-offer-card-title">Milk 2% 1L</h2>
-                        <div class="product-offer-card-prices">
-                            <span class="product-offer-card-old-price">€1.29</span>
-                            <span class="product-offer-card-new-price">€0.99</span>
-                        </div>
-                        <button
-                            class="button button--offer add-to-cart"
-                            type="button"
-                            data-title="Milk 2% 1L"
-                            data-price="0.99"
-                            data-store="LIDL"
-                        >
-                            Add to cart
-                        </button>
-                    </div>
-
-                    <div class="product-tabel-offer" data-store="MAXIMA" data-price="1.49">
-                        <div class="store-product-image"></div>
-                        <p class="product-offer-card-store">MAXIMA</p>
-                        <h2 class="product-offer-card-title">Bananas 1kg</h2>
-                        <div class="product-offer-card-prices">
-                            <span class="product-offer-card-old-price">€1.79</span>
-                            <span class="product-offer-card-new-price">€1.49</span>
-                        </div>
-                        <button
-                            class="button button--offer add-to-cart"
-                            type="button"
-                            data-title="Bananas 1kg"
-                            data-price="1.49"
-                            data-store="MAXIMA"
-                        >
-                            Add to cart
-                        </button>
-                    </div>
-
-                    <div class="product-tabel-offer" data-store="RIMI" data-price="2.49">
-                        <div class="store-product-image"></div>
-                        <p class="product-offer-card-store">RIMI</p>
-                        <h2 class="product-offer-card-title">Chicken fillet 500g</h2>
-                        <div class="product-offer-card-prices">
-                            <span class="product-offer-card-old-price">€3.09</span>
-                            <span class="product-offer-card-new-price">€2.49</span>
-                        </div>
-                        <button
-                            class="button button--offer add-to-cart"
-                            type="button"
-                            data-title="Chicken fillet 500g"
-                            data-price="2.49"
-                            data-store="RIMI"
-                        >
-                            Add to cart
-                        </button>
-                    </div>
-
-                    <div class="product-tabel-offer" data-store="LIDL" data-price="0.79">
-                        <div class="store-product-image"></div>
-                        <p class="product-offer-card-store">LIDL</p>
-                        <h2 class="product-offer-card-title">Bread classic</h2>
-                        <div class="product-offer-card-prices">
-                            <span class="product-offer-card-old-price">€1.05</span>
-                            <span class="product-offer-card-new-price">€0.79</span>
-                        </div>
-                        <button
-                            class="button button--offer add-to-cart"
-                            type="button"
-                            data-title="Bread classic"
-                            data-price="0.79"
-                            data-store="LIDL"
-                        >
-                            Add to cart
-                        </button>
-                    </div>
+            <div class="product-tabel-offer" data-store="RIMI" data-price="1.39">
+                <div class="store-product-image">
+                    <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_293677_PCE_LV">
                 </div>
+                <p class="product-offer-card-store">RIMI</p>
+                <h2 class="product-offer-card-title">Sviests saldkrējuma 82,5% 200g</h2>
+                <div class="product-offer-card-prices">
+                    <span class="product-offer-card-old-price">€3.19</span>
+                    <span class="product-offer-card-new-price">€1.39</span>
+                </div>
+                <button class="button button--offer add-to-cart"
+                    data-title="Sviests"
+                    data-price="1.39"
+                    data-store="RIMI">
+                    Add to cart
+                </button>
             </div>
-        </section>
+
+            <div class="product-tabel-offer" data-store="RIMI" data-price="1.99">
+                <div class="store-product-image">
+                    <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_286441_KGM_LV">
+                </div>
+                <p class="product-offer-card-store">RIMI</p>
+                <h2 class="product-offer-card-title">Kartupeļi saldie kg</h2>
+                <div class="product-offer-card-prices">
+                    <span class="product-offer-card-old-price">€2.79</span>
+                    <span class="product-offer-card-new-price">€1.99</span>
+                </div>
+                <button class="button button--offer add-to-cart"
+                    data-title="Kartupeļi"
+                    data-price="1.99"
+                    data-store="RIMI">
+                    Add to cart
+                </button>
+            </div>
+
+            <!-- ПУСТЫЕ КАРТОЧКИ -->
+
+        <div class="product-tabel-offer" data-store="RIMI" data-price="1.79">
+        <div class="store-product-image">
+            <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_XXXX">
+        </div>
+        <p class="product-offer-card-store">RIMI</p>
+        <h2 class="product-offer-card-title">Ziedkāposts Rimi 500g</h2>
+        <div class="product-offer-card-prices">
+            <span class="product-offer-card-old-price">€2.49</span>
+            <span class="product-offer-card-new-price">€1.79</span>
+        </div>
+        <button class="button button--offer add-to-cart"
+            data-title="Ziedkāposts"
+            data-price="1.79"
+            data-store="RIMI">
+            Add to cart
+        </button>
+    </div>
+
+    <div class="product-tabel-offer" data-store="RIMI" data-price="0.79">
+        <div class="store-product-image">
+            <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_XXXX">
+        </div>
+        <p class="product-offer-card-store">RIMI</p>
+        <h2 class="product-offer-card-title">Āboli Red Jonaprince kg</h2>
+        <div class="product-offer-card-prices">
+            <span class="product-offer-card-old-price">€1.29</span>
+            <span class="product-offer-card-new-price">€0.79</span>
+        </div>
+        <button class="button button--offer add-to-cart"
+            data-title="Āboli"
+            data-price="0.79"
+            data-store="RIMI">
+            Add to cart
+        </button>
+    </div>
+
+    <div class="product-tabel-offer" data-store="RIMI" data-price="1.29">
+        <div class="store-product-image">
+            <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_XXXX">
+        </div>
+        <p class="product-offer-card-store">RIMI</p>
+        <h2 class="product-offer-card-title">Brokoļi Rimi 350g</h2>
+        <div class="product-offer-card-prices">
+            <span class="product-offer-card-old-price">€1.89</span>
+            <span class="product-offer-card-new-price">€1.29</span>
+        </div>
+        <button class="button button--offer add-to-cart"
+            data-title="Brokoļi"
+            data-price="1.29"
+            data-store="RIMI">
+            Add to cart
+        </button>
+    </div>
+
+    <div class="product-tabel-offer" data-store="RIMI" data-price="2.69">
+        <div class="store-product-image">
+            <img src="https://rimibaltic-res.cloudinary.com/image/upload/MAT_XXXX">
+        </div>
+        <p class="product-offer-card-store">RIMI</p>
+        <h2 class="product-offer-card-title">Avokado (4gab) 500g</h2>
+        <div class="product-offer-card-prices">
+            <span class="product-offer-card-old-price">€3.99</span>
+            <span class="product-offer-card-new-price">€2.69</span>
+        </div>
+        <button class="button button--offer add-to-cart"
+            data-title="Avokado"
+            data-price="2.69"
+            data-store="RIMI">
+            Add to cart
+        </button>
+    </div>
+</section>
 
         <section class="top-offers">
             <div class="top-offers-body">
@@ -275,13 +264,13 @@
         </section>
     </main>
 
-        <footer class="footer">
-            <div class="footer-body">
-                <a href="#" class="footer-link">Contacts</a>
-                <a href="#" class="footer-link">Stores</a>
-                <a href="#" class="footer-link">Socials</a>
-            </div>
-        </footer>
+    <footer class="footer">
+        <div class="footer-body">
+            <a href="https://www.rvt.lv/" class="footer-link">Contacts</a>
+            <a href="#" class="footer-link">Stores</a>
+            <a href="https://www.rvt.lv/" class="footer-link">Socials</a>
+        </div>
+    </footer>
 
     <div class="auth-modal" id="authModal">
         <div class="auth-modal-window">
@@ -312,30 +301,6 @@
 
                 <button class="button button--primary auth-form-submit" type="submit">
                     Register
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <div class="auth-modal" id="loginModal">
-        <div class="auth-modal-window">
-            <button class="auth-modal-close login-modal-close" type="button">&times;</button>
-
-            <h2 class="auth-modal-title">Login</h2>
-
-            <form class="auth-form" id="loginForm">
-                <label class="auth-form-label">
-                    <span>Email</span>
-                    <input type="email" name="email" class="auth-form-input" placeholder="Enter email" required>
-                </label>
-
-                <label class="auth-form-label">
-                    <span>Password</span>
-                    <input type="password" name="password" class="auth-form-input" placeholder="Enter password" required>
-                </label>
-
-                <button class="button button--primary auth-form-submit" type="submit">
-                    Login
                 </button>
             </form>
         </div>
