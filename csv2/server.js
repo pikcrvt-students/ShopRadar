@@ -8,7 +8,7 @@ const app = express();
 // ===== MIDDLEWARE =====
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("code"));
+app.use(express.static(path.join(__dirname, "..")));
 
 app.use(session({
     secret: "secret123",
@@ -59,7 +59,7 @@ if (!fs.existsSync(CART_FILE)) {
 
 // HOME
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "code", "home.html"));
+   res.sendFile(path.join(__dirname, '..', 'code', 'home.html'));
 });
 
 // REGISTER
@@ -88,7 +88,7 @@ app.post("/register", (req, res) => {
 });
 
 // LOGIN
-aapp.post("/login", (req, res) => {
+app.post("/login", (req, res) => {
     const { email, password } = req.body;
 
     const users = readCSV(USERS_FILE);
@@ -181,6 +181,6 @@ app.get("/api/cart", (req, res) => {
 
 
 // START
-app.listen(3000, () => {
-    console.log("http://localhost:3000");
+app.listen(3001, () => {
+    console.log("http://localhost:3001");
 });

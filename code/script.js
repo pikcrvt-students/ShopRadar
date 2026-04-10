@@ -2,7 +2,7 @@ let currentUser = null;
 
 // ---------- USERS CSV ----------
 async function loadUsers() {
-    const response = await fetch('csv/users.csv');
+    const response = await fetch('../csv2/users.csv');
     const text = await response.text();
 
     return text

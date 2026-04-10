@@ -4,56 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Radar | LIDL</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="/code/styles.css">
+    <script src="/code/script.js" defer></script>
 </head>
 <body>
     <header class="header">
-        <a href="./home.html" class="header-logo">
-            <img 
-                class="headerlogoimg"
-                src="../images/logo.png" 
-                alt="Shop Radar Logo"
-                height="40"
-                loading="lazy"
-            />
+    <a href="./home.html" class="header-logo">
+        <img
+            class="headerlogoimg"
+            src="../images/logo.png"
+            alt="Shop Radar Logo"
+            height="40"
+            loading="lazy"
+        >
+    </a>
+
+    <nav class="header-menu">
+        <ul class="header-menu-list">
+            <li class="header-menu-item">
+                <a href="./home.html" class="header-menu-link">Home</a>
+            </li>
+            <li class="header-menu-item">
+                <a href="./lidl.html" class="header-menu-link is-current">LIDL</a>
+            </li>
+            <li class="header-menu-item">
+                <a href="./maxima.html" class="header-menu-link">MAXIMA</a>
+            </li>
+            <li class="header-menu-item">
+                <a href="./rimi.html" class="header-menu-link">RIMI</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="header-actions">
+        <a href="./cart.html" class="header-cart-button button">
+            Cart (<span class="cart-count">0</span>)
         </a>
 
-        <nav class="header-menu">
-            <ul class="header-menu-list">
-                <li class="header-menu-item">
-                    <a href="./home.html" class="header-menu-link">Home</a>
-                </li>
-                <li class="header-menu-item">
-                    <a href="./lidl.html" class="header-menu-link is-current">LIDL</a>
-                </li>
-                <li class="header-menu-item">
-                    <a href="./maxima.html" class="header-menu-link">MAXIMA</a>
-                </li>
-                <li class="header-menu-item">
-                    <a href="./rimi.html" class="header-menu-link">RIMI</a>
-                </li>
-            </ul>
-        </nav>
+        <button class="header-acount-button" type="button" aria-label="Open profile menu"></button>
 
-        <div class="header-actions">
-            <a href="./cart.html" class="header-cart-button button">
-                Cart (<span class="cart-count">0</span>)
-            </a>
-
-            <button class="header-acount-button" type="button"></button>
-
-            <div class="profile-menu">
-                <div class="profile-menu-body">
-                    <p class="profile-name">Guest</p>
-                    <button class="profile-link profile-register-button" type="button">Register</button>
-                    <a href="#" class="profile-link">Profile</a>
-                    <button class="profile-link profile-settings-button" type="button">Settings</button>
-                    <a href="#" class="profile-link">Logout</a>
+        <div class="profile-menu">
+            <div class="profile-menu-body">
+                <div class="profile-menu-header">
+                    <div class="profile-avatar">G</div>
+                    <div class="profile-menu-user-info">
+                        <p class="profile-name">Guest</p>
+                        <p class="profile-email">Not logged in</p>
+                    </div>
                 </div>
+
+                <button class="profile-link profile-register-button" type="button">Register</button>
+                <button class="profile-link profile-login-button" type="button">Login</button>
+                <button class="profile-link profile-view-button" type="button">Profile</button>
+                <button class="profile-link profile-settings-button" type="button">Settings</button>
+                <button class="profile-link profile-logout-button" type="button">Logout</button>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <main class="content">
         <section class="store-hero store-hero--lidl">

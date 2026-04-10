@@ -677,7 +677,54 @@ h6 {
     flex-wrap: wrap;
     gap: 30px;
 }
+.product-tabel-offer .store-product-image {
+    height: 160px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
+}
 
+.product-tabel-offer .store-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.product-offer-card-store {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--color-orange);
+}
+
+.product-offer-card-title {
+    font-size: 24px;
+    line-height: 1.1;
+    text-transform: none;
+}
+
+.product-offer-card-prices {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.product-offer-card-old-price {
+    color: var(--color-light-grey);
+    text-decoration: line-through;
+    font-size: 16px;
+}
+
+.product-offer-card-new-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-dark);
+}
 .product-tabel-offer {
     flex: 1 1 calc(33.333% - 20px);
     max-width: calc(33.333% - 20px);

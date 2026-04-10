@@ -9,44 +9,59 @@
 </head>
 <body>
     <header class="header">
-        <a href="./home.html" class="header-logo">
-            <img 
-                class="headerlogoimg"
-                src="../images/logo.png"
-                alt="Shop Radar Logo"
-                height="40"
-                loading="lazy"
-            >
+    <a href="./home.html" class="header-logo">
+        <img
+            class="headerlogoimg"
+            src="../images/logo.png"
+            alt="Shop Radar Logo"
+            height="40"
+            loading="lazy"
+        >
+    </a>
+
+    <nav class="header-menu">
+        <ul class="header-menu-list">
+            <li class="header-menu-item">
+                <a href="./home.html" class="header-menu-link">Home</a>
+            </li>
+            <li class="header-menu-item">
+                <a href="./lidl.html" class="header-menu-link">LIDL</a>
+            </li>
+            <li class="header-menu-item">
+                <a href="./maxima.html" class="header-menu-link">MAXIMA</a>
+            </li>
+            <li class="header-menu-item">
+                <a href="./rimi.html" class="header-menu-link is-current">RIMI</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="header-actions">
+        <a href="./cart.html" class="header-cart-button button">
+            Cart (<span class="cart-count">0</span>)
         </a>
 
-        <nav class="header-menu">
-            <ul class="header-menu-list">
-                <li><a href="./home.html" class="header-menu-link">Home</a></li>
-                <li><a href="./lidl.html" class="header-menu-link">LIDL</a></li>
-                <li><a href="./maxima.html" class="header-menu-link">MAXIMA</a></li>
-                <li><a href="./rimi.html" class="header-menu-link is-current">RIMI</a></li>
-            </ul>
-        </nav>
+        <button class="header-acount-button" type="button" aria-label="Open profile menu"></button>
 
-        <div class="header-actions">
-            <a href="./cart.html" class="header-cart-button button">
-                Cart (<span class="cart-count">0</span>)
-            </a>
-
-            <button class="header-acount-button" type="button" aria-label="Open profile menu"></button>
-
-            <div class="profile-menu">
-                <div class="profile-menu-body">
-                    <p class="profile-name">Guest</p>
-                    <button class="profile-link profile-register-button" type="button">Register</button>
-                    <button class="profile-link profile-login-button" type="button">Login</button>
-                    <a href="#" class="profile-link">Profile</a>
-                    <button class="profile-link profile-settings-button" type="button">Settings</button>
-                    <button class="profile-link profile-logout-button" type="button" style="display: none;">Logout</button>
+        <div class="profile-menu">
+            <div class="profile-menu-body">
+                <div class="profile-menu-header">
+                    <div class="profile-avatar">G</div>
+                    <div class="profile-menu-user-info">
+                        <p class="profile-name">Guest</p>
+                        <p class="profile-email">Not logged in</p>
+                    </div>
                 </div>
+
+                <button class="profile-link profile-register-button" type="button">Register</button>
+                <button class="profile-link profile-login-button" type="button">Login</button>
+                <button class="profile-link profile-view-button" type="button">Profile</button>
+                <button class="profile-link profile-settings-button" type="button">Settings</button>
+                <button class="profile-link profile-logout-button" type="button">Logout</button>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <main class="content">
         <section class="store-hero">
