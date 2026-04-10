@@ -1,3 +1,21 @@
+let currentUser = null;
+
+// ---------- USERS CSV ----------
+async function loadUsers() {
+    const response = await fetch('csv/users.csv');
+    const text = await response.text();
+
+    return text
+        .trim()
+        .split('\n')
+        .slice(1)
+        .map(row => {
+            const [username, email, password] = row.split(',');
+            return { username, email, password };
+        });
+}
+
+// ---------- CART ----------
 function getCart() {
     try {
         return JSON.parse(localStorage.getItem('cart')) || [];
@@ -10,25 +28,10 @@ function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-function getCurrentUser() {
-    try {
-        return JSON.parse(localStorage.getItem('currentUser')) || null;
-    } catch {
-        return null;
-    }
-}
-
-function setCurrentUser(user) {
-    if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-    } else {
-        localStorage.removeItem('currentUser');
-    }
-}
-
 function updateCartCount() {
     const countElements = document.querySelectorAll('.cart-count');
     const cart = getCart();
+
     const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     countElements.forEach(element => {
@@ -38,6 +41,7 @@ function updateCartCount() {
 
 function addToCart(product) {
     const cart = getCart();
+
     const existingItem = cart.find(
         item => item.title === product.title && item.store === product.store
     );
@@ -55,6 +59,7 @@ function addToCart(product) {
 
     saveCart(cart);
     updateCartCount();
+
     alert(`${product.title} added to cart`);
 }
 
@@ -158,6 +163,371 @@ function renderCartPage() {
     }
 }
 
+// ---------- USER / SESSION ----------
+function getCurrentUser() {
+    try {
+        return JSON.parse(localStorage.getItem('currentUser')) || null;
+    } catch {
+        return null;
+    }
+}
+
+function setCurrentUser(user) {
+    currentUser = user || null;
+
+    if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+    } else {
+        localStorage.removeItem('currentUser');
+    }
+}
+
+async function restoreUserSession() {
+    try {
+        const response = await fetch('/api/me');
+        const result = await response.json();
+
+        if (result.ok && result.user) {
+            setCurrentUser(result.user);
+        } else {
+            setCurrentUser(getCurrentUser());
+        }
+    } catch (error) {
+        console.error('Restore session error:', error);
+        setCurrentUser(getCurrentUser());
+    }
+
+    updateProfileUI();
+}
+
+// ---------- UI ----------
+function updateProfileUI() {
+    const profileName = document.querySelector('.profile-name');
+    const profileEmail = document.querySelector('.profile-email');
+
+    const registerButton = document.querySelector('.profile-register-button');
+    const loginButton = document.querySelector('.profile-login-button');
+    const logoutButton = document.querySelector('.profile-logout-button');
+    const profileButton = document.querySelector('.profile-view-button');
+
+    const profileUsername = document.querySelector('#profileUsername');
+    const profileUserEmail = document.querySelector('#profileUserEmail');
+    const profileStatus = document.querySelector('#profileStatus');
+    const profileAvatar = document.querySelector('.profile-avatar');
+    const profileAvatarLarge = document.querySelector('#profileAvatarLarge');
+    const profileCartCount = document.querySelector('#profileCartCount');
+
+    const cart = getCart();
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    const username = currentUser?.username || 'Guest';
+    const email = currentUser?.email || 'Not logged in';
+    const firstLetter = username.charAt(0).toUpperCase();
+
+    if (profileName) {
+        profileName.textContent = username;
+    }
+
+    if (profileEmail) {
+        profileEmail.textContent = email;
+    }
+
+    if (profileUsername) {
+        profileUsername.textContent = username;
+    }
+
+    if (profileUserEmail) {
+        profileUserEmail.textContent = email;
+    }
+
+    if (profileStatus) {
+        profileStatus.textContent = currentUser ? 'Logged in' : 'Guest account';
+    }
+
+    if (profileAvatar) {
+        profileAvatar.textContent = firstLetter;
+    }
+
+    if (profileAvatarLarge) {
+        profileAvatarLarge.textContent = firstLetter;
+    }
+
+    if (profileCartCount) {
+        profileCartCount.textContent = `${totalCount} item${totalCount === 1 ? '' : 's'}`;
+    }
+
+    if (registerButton) {
+        registerButton.style.display = currentUser ? 'none' : 'block';
+    }
+
+    if (loginButton) {
+        loginButton.style.display = currentUser ? 'none' : 'block';
+    }
+
+    if (logoutButton) {
+        logoutButton.style.display = currentUser ? 'block' : 'none';
+    }
+
+    if (profileButton) {
+        profileButton.style.display = currentUser ? 'block' : 'none';
+    }
+}
+function initProfileModal() {
+    const modal = document.querySelector('#profileModal');
+    const openButton = document.querySelector('.profile-view-button');
+    const closeButton = document.querySelector('.profile-modal-close');
+    const settingsButton = document.querySelector('.profile-modal-settings-button');
+    const settingsModal = document.querySelector('#settingsModal');
+    const profileMenu = document.querySelector('.profile-menu');
+
+    if (!modal || !openButton || !closeButton) return;
+
+    openButton.addEventListener('click', () => {
+        if (!currentUser) {
+            alert('Please login first');
+            return;
+        }
+
+        updateProfileUI();
+        modal.classList.add('is-open');
+
+        if (profileMenu) {
+            profileMenu.classList.remove('is-open');
+        }
+    });
+
+    closeButton.addEventListener('click', () => {
+        modal.classList.remove('is-open');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('is-open');
+        }
+    });
+
+    if (settingsButton && settingsModal) {
+        settingsButton.addEventListener('click', () => {
+            modal.classList.remove('is-open');
+            settingsModal.classList.add('is-open');
+        });
+    }
+}
+// ---------- MODALS ----------
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.add('is-open');
+    }
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.remove('is-open');
+    }
+}
+
+// ---------- LOGIN ----------
+async function login(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const result = await response.json();
+
+        if (result.ok && result.user) {
+            setCurrentUser(result.user);
+            updateProfileUI();
+            form.reset();
+            closeModal('loginModal');
+            alert(result.message || `Welcome back, ${result.user.username}`);
+            return;
+        }
+    } catch (error) {
+        console.error('Server login error:', error);
+    }
+
+    try {
+        const users = await loadUsers();
+
+        const user = users.find(
+            u => u.email === email && u.password === password
+        );
+
+        if (!user) {
+            alert('Wrong email or password');
+            return;
+        }
+
+        setCurrentUser(user);
+        updateProfileUI();
+        form.reset();
+        closeModal('loginModal');
+    } catch (error) {
+        console.error('CSV login error:', error);
+        alert('Login failed');
+    }
+}
+
+// ---------- REGISTER ----------
+async function register(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const username = form.username.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const repeat = form.repeatPassword.value;
+
+    if (password !== repeat) {
+        alert('Passwords do not match');
+        return;
+    }
+
+    const userData = { username, email, password };
+
+    try {
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
+
+        const result = await response.json();
+
+        if (result.ok && result.user) {
+            setCurrentUser(result.user);
+            updateProfileUI();
+            form.reset();
+            closeModal('authModal');
+            alert(result.message || 'Registration successful');
+            return;
+        }
+
+        if (!result.ok) {
+            alert(result.message || 'Registration failed');
+            return;
+        }
+    } catch (error) {
+        console.error('Server register error:', error);
+    }
+
+    setCurrentUser(userData);
+    updateProfileUI();
+    form.reset();
+    closeModal('authModal');
+    alert('Registered locally');
+}
+
+// ---------- LOGOUT ----------
+async function logout() {
+    try {
+        await fetch('/api/logout', {
+            method: 'POST'
+        });
+    } catch (error) {
+        console.error('Logout error:', error);
+    }
+
+    setCurrentUser(null);
+    updateProfileUI();
+
+    const profileMenu = document.querySelector('.profile-menu');
+    if (profileMenu) {
+        profileMenu.classList.remove('is-open');
+    }
+
+    alert('Logged out');
+}
+
+// ---------- PROFILE MENU ----------
+function initProfileMenu() {
+    const button = document.querySelector('.header-acount-button');
+    const menu = document.querySelector('.profile-menu');
+
+    if (!button || !menu) return;
+
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('is-open');
+    });
+
+    document.addEventListener('click', () => {
+        menu.classList.remove('is-open');
+    });
+
+    menu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+}
+
+// ---------- EVENTS ----------
+function initEvents() {
+    const profileMenu = document.querySelector('.profile-menu');
+
+    document.querySelector('#loginForm')?.addEventListener('submit', login);
+    document.querySelector('#registerForm')?.addEventListener('submit', register);
+
+    document.querySelector('.profile-login-button')
+        ?.addEventListener('click', () => {
+            openModal('loginModal');
+            profileMenu?.classList.remove('is-open');
+        });
+
+    document.querySelector('.profile-register-button')
+        ?.addEventListener('click', () => {
+            openModal('authModal');
+            profileMenu?.classList.remove('is-open');
+        });
+
+    document.querySelector('.profile-logout-button')
+        ?.addEventListener('click', logout);
+
+    document.querySelectorAll('.auth-modal-close, .login-modal-close').forEach(btn => {
+        btn.addEventListener('click', () => {
+            closeModal('authModal');
+            closeModal('loginModal');
+        });
+    });
+
+    document.querySelector('#authModal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'authModal') {
+            closeModal('authModal');
+        }
+    });
+
+    document.querySelector('#loginModal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'loginModal') {
+            closeModal('loginModal');
+        }
+    });
+
+    document.querySelector('#openRegisterFromLogin')?.addEventListener('click', () => {
+        closeModal('loginModal');
+        openModal('authModal');
+    });
+
+    document.querySelector('#openLoginFromRegister')?.addEventListener('click', () => {
+        closeModal('authModal');
+        openModal('loginModal');
+    });
+}
+
+// ---------- HEADER MENU ANIMATION ----------
 function initHeaderMenuAnimation() {
     const menuLinks = document.querySelectorAll('.header-menu-link');
 
@@ -180,195 +550,7 @@ function initHeaderMenuAnimation() {
     });
 }
 
-function initProfileMenu() {
-    const button = document.querySelector('.header-acount-button');
-    const menu = document.querySelector('.profile-menu');
-
-    if (!button || !menu) return;
-
-    button.addEventListener('click', (e) => {
-        e.stopPropagation();
-        menu.classList.toggle('is-open');
-    });
-
-    document.addEventListener('click', () => {
-        menu.classList.remove('is-open');
-    });
-
-    menu.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
-}
-
-function updateProfileUI() {
-    const currentUser = getCurrentUser();
-
-    const profileName = document.querySelector('.profile-name');
-    const registerButton = document.querySelector('.profile-register-button');
-    const loginButton = document.querySelector('.profile-login-button');
-    const logoutButton = document.querySelector('.profile-logout-button');
-
-    if (profileName) {
-        profileName.textContent = currentUser ? currentUser.username : 'Guest';
-    }
-
-    if (registerButton) {
-        registerButton.style.display = currentUser ? 'none' : '';
-    }
-
-    if (loginButton) {
-        loginButton.style.display = currentUser ? 'none' : '';
-    }
-
-    if (logoutButton) {
-        logoutButton.style.display = currentUser ? '' : 'none';
-    }
-}
-
-function initLogoutButton() {
-    const logoutButton = document.querySelector('.profile-logout-button');
-    const profileMenu = document.querySelector('.profile-menu');
-
-    if (!logoutButton) return;
-
-    logoutButton.addEventListener('click', async () => {
-        try {
-            await fetch('/api/logout', {
-                method: 'POST'
-            });
-        } catch (error) {
-            console.error('Logout error:', error);
-        }
-
-        setCurrentUser(null);
-
-        if (profileMenu) {
-            profileMenu.classList.remove('is-open');
-        }
-
-        updateProfileUI();
-        alert('Logged out');
-    });
-}
-
-function initRegisterModal() {
-    const modal = document.querySelector('#authModal');
-    const openButton = document.querySelector('.profile-register-button');
-    const closeButton = modal?.querySelector('.auth-modal-close');
-    const registerForm = document.querySelector('#registerForm');
-    const profileMenu = document.querySelector('.profile-menu');
-
-    if (!modal || !openButton || !closeButton || !registerForm) return;
-
-    openButton.addEventListener('click', () => {
-        modal.classList.add('is-open');
-        if (profileMenu) {
-            profileMenu.classList.remove('is-open');
-        }
-    });
-
-    closeButton.addEventListener('click', () => {
-        modal.classList.remove('is-open');
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('is-open');
-        }
-    });
-
-    registerForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = Object.fromEntries(new FormData(registerForm).entries());
-
-        try {
-            const response = await fetch('/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            const result = await response.json();
-
-            if (!result.ok) {
-                alert(result.message || 'Registration failed');
-                return;
-            }
-
-            setCurrentUser(result.user);
-            registerForm.reset();
-            modal.classList.remove('is-open');
-            updateProfileUI();
-            alert(result.message || 'Registration successful');
-        } catch (error) {
-            console.error('Register error:', error);
-            alert('Server error');
-        }
-    });
-}
-
-function initLoginModal() {
-    const modal = document.querySelector('#loginModal');
-    const openButton = document.querySelector('.profile-login-button');
-    const closeButton = modal?.querySelector('.login-modal-close');
-    const loginForm = document.querySelector('#loginForm');
-    const profileMenu = document.querySelector('.profile-menu');
-
-    if (!modal || !openButton || !closeButton || !loginForm) return;
-
-    openButton.addEventListener('click', () => {
-        modal.classList.add('is-open');
-        if (profileMenu) {
-            profileMenu.classList.remove('is-open');
-        }
-    });
-
-    closeButton.addEventListener('click', () => {
-        modal.classList.remove('is-open');
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('is-open');
-        }
-    });
-
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = Object.fromEntries(new FormData(loginForm).entries());
-
-        try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            const result = await response.json();
-
-            if (!result.ok) {
-                alert(result.message || 'Login failed');
-                return;
-            }
-
-            setCurrentUser(result.user);
-            loginForm.reset();
-            modal.classList.remove('is-open');
-            updateProfileUI();
-            alert(result.message || `Welcome back, ${result.user.username}`);
-        } catch (error) {
-            console.error('Login error:', error);
-            alert('Server error');
-        }
-    });
-}
-
+// ---------- HOME FILTERS ----------
 function initHomeFilters() {
     const filterContainer = document.querySelector('.search-filter');
     const filters = document.querySelectorAll('.search-filter-items');
@@ -438,6 +620,7 @@ function initHomeFilters() {
     }
 }
 
+// ---------- STORE SEARCH ----------
 function initStoreSearch() {
     const searchInput = document.querySelector('.store-search-field input');
     const productCards = document.querySelectorAll('.store-product-card');
@@ -450,11 +633,13 @@ function initStoreSearch() {
         productCards.forEach(card => {
             const title = card.querySelector('.store-product-title')?.textContent.toLowerCase() || '';
             const isVisible = title.includes(value);
+
             card.style.display = isVisible ? 'flex' : 'none';
         });
     });
 }
 
+// ---------- SETTINGS ----------
 function applySavedSettings() {
     const savedSettings = JSON.parse(localStorage.getItem('settings')) || {};
 
@@ -528,29 +713,14 @@ function initSettingsModal() {
     });
 }
 
-async function restoreUserSession() {
-    try {
-        const response = await fetch('/api/me');
-        const result = await response.json();
+// ---------- INIT ----------
+document.addEventListener('DOMContentLoaded', async () => {
+    setCurrentUser(getCurrentUser());
 
-        if (result.ok && result.user) {
-            setCurrentUser(result.user);
-        } else {
-            setCurrentUser(null);
-        }
-    } catch (error) {
-        console.error('Restore session error:', error);
-    }
-
-    updateProfileUI();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
     initHeaderMenuAnimation();
     initProfileMenu();
-    initRegisterModal();
-    initLoginModal();
-    initLogoutButton();
+    initEvents();
+    initProfileModal();
     initSettingsModal();
     initHomeFilters();
     initStoreSearch();
@@ -558,5 +728,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCartPage();
     updateCartCount();
     applySavedSettings();
-    restoreUserSession();
+    updateProfileUI();
+
+    await restoreUserSession();
 });
