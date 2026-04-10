@@ -22,6 +22,7 @@ function readCSV(file) {
 const USERS_FILE = "users.csv";
 const CART_FILE = "cart.csv";
 
+
 // ===== TERMINAL MENU =====
 const readline = require("readline").createInterface({
     input: process.stdin,
