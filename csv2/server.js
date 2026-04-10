@@ -88,11 +88,10 @@ app.post("/register", (req, res) => {
 });
 
 // LOGIN
-app.post("/login", (req, res) => {
+aapp.post("/login", (req, res) => {
     const { email, password } = req.body;
 
     const users = readCSV(USERS_FILE);
-
     const user = users.find(u => u.email === email && u.password === password);
 
     if (!user) {
@@ -101,8 +100,15 @@ app.post("/login", (req, res) => {
 
     req.session.user_id = user.id;
 
+    console.log(`\n===== USER INFO =====`);
+console.log(`Username: ${user.username}`);
+console.log(`Email: ${user.email}`);
+console.log(`======================\n`);
+
+
     res.json({ ok: true, user });
 });
+
 
 // LOGOUT
 app.post("/logout", (req, res) => {
@@ -163,8 +169,16 @@ app.get("/api/cart", (req, res) => {
 
     const cart = readCSV(CART_FILE).filter(c => c.user_id === user_id);
 
+    console.log(`\n===== USER CART =====`);
+    cart.forEach(item => {
+        console.log(`Product: ${item.product_id} | Quantity: ${item.quantity}`);    
+    });
+    console.log(`======================\n`);
+    
+
     res.json({ ok: true, cart });
 });
+
 
 // START
 app.listen(3000, () => {
